@@ -128,7 +128,6 @@ module mem_walker_stride_group #(
     assign stall_final = isBase ? stall_d : stall;
 
     assign addr_out_valid_d = (addr_gen_valid  && ~stall_final);
-    //assign addr_out_valid_d = addr_gen_valid && ~stall; // rohan added
 
     generate
     for(genvar i=0; i < NUM_MAX_LOOPS; i=i+1) begin
@@ -150,7 +149,6 @@ module mem_walker_stride_group #(
         end
         
         always @(posedge clk) begin
-            //if ( load_new_group || base_addr_v ||(~loop_done && ~stall_d))      // rohan: make stall_d instead of stall;
             if ( load_new_group || base_addr_v || (~loop_done && ~stall))
                 loop_address_d[i] <= loop_address[i];
         end
